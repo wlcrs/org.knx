@@ -69,6 +69,15 @@
         "tilt_status": "Tilt status adresse"
       },
       "sensor": "Sensor adresse",
+      "smoke_sensor": {
+        "smoke_alarm": "Røgalarmsadresse",
+        "alarm": "Generel alarmadresse",
+        "heat_alarm": "Varmealarmadresse",
+        "signal": "Signaladresse",
+        "failure_battery": "Batterifejladresse",
+        "failure_temperature": "Temperatursensorfejladresse",
+        "failure_smoke": "Røgdetektorfejladresse"
+      },
       "scene": "Scene adresse"
     },
     "scene_number": "Scene nummer"

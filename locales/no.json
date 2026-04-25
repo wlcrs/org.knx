@@ -69,6 +69,15 @@
         "tilt_status": "Tilt statusadresse"
       },
       "sensor": "Sensoradresse",
+      "smoke_sensor": {
+        "smoke_alarm": "Røykalarmadresse",
+        "alarm": "Generell alarmadresse",
+        "heat_alarm": "Varmealarmsadresse",
+        "signal": "Signaladresse",
+        "failure_battery": "Batterifeiladresse",
+        "failure_temperature": "Temperatursensorfeiladresse",
+        "failure_smoke": "Røykdetektorfeiladresse"
+      },
       "scene": "Sceneadresse"
     },
     "scene_number": "Scenenummer"
@@ -82,7 +91,6 @@
     "rgb_failed": "Innstilling av farge mislyktes!",
     "temperature_set_failed": "Innstilling av temperatur mislyktes!",
     "temperature_get_failed": "Henting av temperatur mislyktes!",
-
     "windowcovering_failed": "Endring av tilstand mislyktes!",
     "windowcovering_stop_failed": "Stopp av vindusdekning mislyktes!",
     "invalid_group_address": "Ugyldig gruppadresse.",
