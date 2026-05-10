@@ -64,6 +64,24 @@
                 "blue_dim_value": "Dim adres blauw kanaal",
                 "blue_dim_status": "Dim status adres blauw kanaal"
             },
+            "rgbw": {
+                "red_toggle_action": "Schakel adres rood kanaal",
+                "red_toggle_status": "Status adres rood kanaal",
+                "red_dim_value": "Dim adres rood kanaal",
+                "red_dim_status": "Dim status adres rood kanaal",
+                "green_toggle_action": "Schakel adres groen kanaal",
+                "green_toggle_status": "Status adres groen kanaal",
+                "green_dim_value": "Dim adres groen kanaal",
+                "green_dim_status": "Dim status adres groen kanaal",
+                "blue_toggle_action": "Schakel adres blauw kanaal",
+                "blue_toggle_status": "Status adres blauw kanaal",
+                "blue_dim_value": "Dim adres blauw kanaal",
+                "blue_dim_status": "Dim status adres blauw kanaal",
+                "white_toggle_action": "Schakel adres wit kanaal",
+                "white_toggle_status": "Status adres wit kanaal",
+                "white_dim_value": "Dim adres wit kanaal",
+                "white_dim_status": "Dim status adres wit kanaal"
+            },
             "windowcovering": {
                 "updown": "Omhoog/omlaag adres",
                 "stop": "Stop adres",

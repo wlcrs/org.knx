@@ -71,6 +71,24 @@
                 "blue_dim_value": "Dim address blue channel",
                 "blue_dim_status": "Dim status address blue channel"
             },
+            "rgbw": {
+                "red_toggle_action": "Toggle address red channel",
+                "red_toggle_status": "Status address red channel",
+                "red_dim_value": "Dim address red channel",
+                "red_dim_status": "Dim status address red channel",
+                "green_toggle_action": "Toggle address green channel",
+                "green_toggle_status": "Status address green channel",
+                "green_dim_value": "Dim address green channel",
+                "green_dim_status": "Dim status address green channel",
+                "blue_toggle_action": "Toggle address blue channel",
+                "blue_toggle_status": "Status address blue channel",
+                "blue_dim_value": "Dim address blue channel",
+                "blue_dim_status": "Dim status address blue channel",
+                "white_toggle_action": "Toggle address white channel",
+                "white_toggle_status": "Status address white channel",
+                "white_dim_value": "Dim address white channel",
+                "white_dim_status": "Dim status address white channel"
+            },
             "windowcovering": {
                 "updown": "Up/down address",
                 "stop": "Stop address",
