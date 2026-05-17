@@ -244,6 +244,45 @@
           }
         },
         {
+          "id": "ga_hvac_controller_mode",
+          "type": "text",
+          "label": {
+            "en": "HVAC controller mode address",
+            "nl": "HVAC controller modus adres"
+          },
+          "hint": {
+            "en": "Enter groupaddress",
+            "nl": "Vul groepadres in"
+          },
+          "value": ""
+        },
+        {
+          "id": "ga_hvac_controller_mode_status",
+          "type": "text",
+          "label": {
+            "en": "HVAC controller mode status address",
+            "nl": "HVAC controller modus status adres"
+          },
+          "hint": {
+            "en": "Enter groupaddress",
+            "nl": "Vul groepadres in"
+          },
+          "value": ""
+        },
+        {
+          "id": "hvac_controller_modes",
+          "type": "text",
+          "label": {
+            "en": "Supported HVAC controller modes",
+            "nl": "Ondersteunde HVAC controller modes"
+          },
+          "hint": {
+            "en": "Configure this in the pairing wizard using the multi-select list.",
+            "nl": "Stel dit in de pairingwizard in met de multi-select lijst."
+          },
+          "value": ""
+        },
+        {
           "id": "ga_fan_speed",
           "type": "text",
           "label": {

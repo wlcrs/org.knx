@@ -2,6 +2,7 @@
 
 const KNXGenericDevice = require('../../lib/GenericKNXDevice');
 const DatapointTypeParser = require('../../lib/DatapointTypeParser');
+const { getOperatingModeValues, getControllerModeValues } = require('../../lib/HVACModeProfiles');
 
 class KNXThermostat extends KNXGenericDevice {
 
@@ -11,6 +12,11 @@ class KNXThermostat extends KNXGenericDevice {
       await this.initOperatingModeCapability();
     } else {
       await this.removeCapabilityIfExists('hvac_operating_mode');
+    }
+    if (typeof this.settings.ga_hvac_controller_mode === 'string' && this.settings.ga_hvac_controller_mode !== '') {
+      await this.initControllerModeCapability();
+    } else {
+      await this.removeCapabilityIfExists('knx_hvac_controller_mode');
     }
     if (typeof this.settings.ga_fan_speed === 'string' && this.settings.ga_fan_speed !== '') {
       await this.initFanSpeedCapability();
@@ -31,6 +37,14 @@ class KNXThermostat extends KNXGenericDevice {
         await this.initOperatingModeCapability();
       } else {
         await this.removeCapabilityIfExists('hvac_operating_mode');
+      }
+    }
+    if (changedKeys.includes('ga_hvac_controller_mode')
+      || changedKeys.includes('hvac_controller_modes')) {
+      if (typeof newSettings.ga_hvac_controller_mode === 'string' && newSettings.ga_hvac_controller_mode !== '') {
+        await this.initControllerModeCapability();
+      } else {
+        await this.removeCapabilityIfExists('knx_hvac_controller_mode');
       }
     }
     if (changedKeys.includes('ga_fan_speed')) {
@@ -62,15 +76,27 @@ class KNXThermostat extends KNXGenericDevice {
 
   async initOperatingModeCapability() {
     await this.addCapabilityIfNotExists('hvac_operating_mode');
+    await this.setCapabilityOptions('hvac_operating_mode', {
+      values: getOperatingModeValues(this.settings),
+    });
     this.registerCapabilityListener('hvac_operating_mode', this.onCapabilityHVACOperatingMode.bind(this));
     // Register actions for flows
     this.homey.flow.getActionCard('change_hvac_mode')
       .registerRunListener((args, state) => {
-        return args.device.setCapabilityValue('hvac_operating_mode', args.mode)
+        const modeValue = args.mode && args.mode.value ? args.mode.value : args.mode;
+        return args.device.setCapabilityValue('hvac_operating_mode', modeValue)
           .then(() => {
-            return args.device.triggerCapabilityListener('hvac_operating_mode', args.mode, {});
+            return args.device.triggerCapabilityListener('hvac_operating_mode', modeValue, {});
           });
       });
+  }
+
+  async initControllerModeCapability() {
+    await this.addCapabilityIfNotExists('knx_hvac_controller_mode');
+    await this.setCapabilityOptions('knx_hvac_controller_mode', {
+      values: getControllerModeValues(this.settings),
+    });
+    this.registerCapabilityListener('knx_hvac_controller_mode', this.onCapabilityHVACControllerMode.bind(this));
   }
 
   async initFanSpeedCapability() {
@@ -112,6 +138,12 @@ class KNXThermostat extends KNXGenericDevice {
           this.error('Set HVAC operating mode error', knxerror);
         });
     }
+    if (groupaddress === this.getStatusAddress('ga_hvac_controller_mode')) {
+      this.setCapabilityValue('knx_hvac_controller_mode', DatapointTypeParser.dpt20(data).toString())
+        .catch((knxerror) => {
+          this.error('Set HVAC controller mode error', knxerror);
+        });
+    }
     if (groupaddress === this.getStatusAddress('ga_fan_speed')) {
       const speed = DatapointTypeParser.dim(data);
       this.setCapabilityValue('knx_fan_speed', speed)
@@ -144,6 +176,7 @@ class KNXThermostat extends KNXGenericDevice {
     this.getTargetTemperature();
     this.getMeasuredTemperature();
     this.getHVACOperatingMode();
+    this.getHVACControllerMode();
     this.getFanAutoMode();
     this.getFanSpeed();
   }
@@ -187,6 +220,18 @@ class KNXThermostat extends KNXGenericDevice {
       });
   }
 
+  onCapabilityHVACControllerMode(value) {
+    if (!this.knxInterface || !this.settings.ga_hvac_controller_mode) {
+      return null;
+    }
+    return this.knxInterface.writeKNXGroupAddress(this.settings.ga_hvac_controller_mode, value, 'DPT20.105')
+      .then(() => this.homey.setTimeout(this.getHVACControllerMode.bind(this), 500))
+      .catch((knxerror) => {
+        this.error(knxerror);
+        throw new Error(this.homey.__('errors.hvac_operating_mode_set_failed'));
+      });
+  }
+
   getMeasuredTemperature() {
     if (!this.knxInterface || !this.settings.ga_temperature_measure) {
       return;
@@ -201,6 +246,17 @@ class KNXThermostat extends KNXGenericDevice {
       return;
     }
     this.knxInterface.readKNXGroupAddress(operatingModeStatusAddress)
+      .catch((knxerror) => {
+        this.error(knxerror);
+      });
+  }
+
+  getHVACControllerMode() {
+    const controllerModeStatusAddress = this.getStatusAddress('ga_hvac_controller_mode');
+    if (!this.knxInterface || !controllerModeStatusAddress) {
+      return;
+    }
+    this.knxInterface.readKNXGroupAddress(controllerModeStatusAddress)
       .catch((knxerror) => {
         this.error(knxerror);
       });

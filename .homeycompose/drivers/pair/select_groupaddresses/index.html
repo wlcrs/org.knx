@@ -19,6 +19,14 @@
         display: none;
     }
 
+	/* Keep the controller mode multi-select visible; it is not a GA dropdown. */
+	.knx-wrap #hvac_controller_modes {
+		display: block;
+		max-width: 260px;
+		width: 100%;
+		margin-left: 0;
+	}
+
     .knx-wrap .knx-entry {
         overflow: hidden;
     }
@@ -238,6 +246,31 @@
         		<input id="hvac_operating_mode_status_address" type="text" class="knx-text" placeholder="e.g. 0/1/2" />
 			</div>
 			<div class="knx-entry">
+				<label for="hvac_controller_mode_address" class="left"
+				   data-i18n="settings.groupaddresses.thermostat.controller_mode"></label>
+			</div>
+			<div class="knx-entry">
+				<select id="hvac_controller_mode_ga_dropdown" class="knx-dropdown right"></select>
+				<input id="hvac_controller_mode_address" type="text" class="knx-text" placeholder="e.g. 0/1/2" />
+			</div>
+			<div class="knx-entry">
+				<label for="hvac_controller_mode_status_address" class="left"
+				   data-i18n="settings.groupaddresses.thermostat.controller_mode_status"></label>
+			</div>
+			<div class="knx-entry">
+				<select id="hvac_controller_mode_status_ga_dropdown" class="knx-dropdown right"></select>
+				<input id="hvac_controller_mode_status_address" type="text" class="knx-text" placeholder="e.g. 0/1/2" />
+			</div>
+			<div id="hvac_controller_modes_group">
+				<div class="knx-entry">
+					<label for="hvac_controller_modes" class="left"
+					   data-i18n="settings.groupaddresses.thermostat.controller_modes"></label>
+				</div>
+				<div class="knx-entry">
+					<select id="hvac_controller_modes" class="right" multiple size="8" style="height: 180px;"></select>
+				</div>
+			</div>
+			<div class="knx-entry">
         		<label for="fan_speed_address" class="left"
              	   data-i18n="settings.groupaddresses.thermostat.fan_speed"></label>
         	</div>
@@ -372,6 +405,28 @@
   var interfaceMAC;
   var groupAddresses;
 
+	var hvacControllerModes = [
+		{ id: '0', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_auto') },
+		{ id: '1', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_heat') },
+		{ id: '2', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_morning_warmup') },
+		{ id: '3', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_cool') },
+		{ id: '4', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_night_purge') },
+		{ id: '5', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_precool') },
+		{ id: '6', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_off') },
+		{ id: '7', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_test') },
+		{ id: '8', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_emergency_heat') },
+		{ id: '9', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_fan_only') },
+		{ id: '10', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_free_cool') },
+		{ id: '11', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_ice') },
+		{ id: '12', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_max_heating') },
+		{ id: '13', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_economic') },
+		{ id: '14', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_dehumidification') },
+		{ id: '15', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_calibration') },
+		{ id: '16', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_emergency_cool') },
+		{ id: '17', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_emergency_steam') },
+		{ id: '20', title: Homey.__('settings.groupaddresses.thermostat.controller_mode_nodem') },
+	];
+
   Homey.emit('return_selected_interface')
     .then(function (macAddress) {
       interfaceMAC = macAddress;
@@ -425,6 +480,7 @@
       case 'thermostat':
         console.log('device is a thermostat');
         $('#knx-thermostat-fieldset').css('display', 'block');
+				initThermostatModeControls();
         break;
       case 'windowcovering':
         console.log('device is a windowcovering');
@@ -459,6 +515,20 @@
     });
     $(selectItem).toggle(!!groupAddresses.length);
   }
+
+	function initThermostatModeControls() {
+		var $controllerModes = $('#hvac_controller_modes');
+
+		if ($controllerModes.children().length === 0) {
+			hvacControllerModes.forEach(function (mode) {
+				var optionEl = document.createElement('option');
+				optionEl.value = mode.id;
+				optionEl.textContent = mode.id + ' - ' + mode.title;
+				$controllerModes.append(optionEl);
+			});
+			$controllerModes.val(['0', '1', '3', '6']);
+		}
+	}
 
   $('.knx-dropdown').on('change', function () {
     var value = $(this).val();
@@ -580,12 +650,23 @@
           break;
         case 'thermostat':
           device.name = 'KNX Thermostat';
+					var selectedControllerModes = $('#hvac_controller_modes').val() || [];
+					var hasControllerMode = $('#hvac_controller_mode_address').val() !== '';
+
+					if (hasControllerMode && selectedControllerModes.length === 0) {
+						Homey.alert(Homey.__('settings.groupaddresses.thermostat.controller_modes_required'));
+						return;
+					}
+
           device.settings = {
             'ga_temperature_target': $('#temperature_target_address').val(),
             'ga_temperature_target_status': $('#temperature_target_status_address').val(),
             'ga_temperature_measure': $('#temperature_measure_address').val(),
             'ga_hvac_operating_mode': $('#hvac_operating_mode_address').val(),
             'ga_hvac_operating_mode_status': $('#hvac_operating_mode_status_address').val(),
+						'ga_hvac_controller_mode': $('#hvac_controller_mode_address').val(),
+						'ga_hvac_controller_mode_status': $('#hvac_controller_mode_status_address').val(),
+						'hvac_controller_modes': JSON.stringify(selectedControllerModes),
             'ga_fan_speed': $('#fan_speed_address').val(),
             'ga_fan_speed_status': $('#fan_speed_status_address').val(),
             'ga_fan_auto_mode': $('#fan_auto_mode_address').val(),
