@@ -97,6 +97,15 @@ class KNXThermostat extends KNXGenericDevice {
       values: getControllerModeValues(this.settings),
     });
     this.registerCapabilityListener('knx_hvac_controller_mode', this.onCapabilityHVACControllerMode.bind(this));
+
+    this.homey.flow.getActionCard('change_hvac_controller_mode')
+      .registerRunListener((args, state) => {
+        const modeValue = args.mode && args.mode.value ? args.mode.value : args.mode;
+        return args.device.setCapabilityValue('knx_hvac_controller_mode', modeValue)
+          .then(() => {
+            return args.device.triggerCapabilityListener('knx_hvac_controller_mode', modeValue, {});
+          });
+      });
   }
 
   async initFanSpeedCapability() {
@@ -139,7 +148,13 @@ class KNXThermostat extends KNXGenericDevice {
         });
     }
     if (groupaddress === this.getStatusAddress('ga_hvac_controller_mode')) {
-      this.setCapabilityValue('knx_hvac_controller_mode', DatapointTypeParser.dpt20(data).toString())
+      const controllerMode = DatapointTypeParser.dpt20(data).toString();
+      this.setCapabilityValue('knx_hvac_controller_mode', controllerMode)
+        .then(() => {
+          this.homey.flow.getDeviceTriggerCard('hvac_controller_mode_changed')
+            .trigger(this, { hvac_controller_mode: controllerMode })
+            .catch(this.error);
+        })
         .catch((knxerror) => {
           this.error('Set HVAC controller mode error', knxerror);
         });

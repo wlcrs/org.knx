@@ -62,6 +62,14 @@ class KNXApp extends Homey.App {
       return selectedValue === 'Any' || args.device.getCapabilityValue('hvac_operating_mode') === selectedValue;
     });
 
+    const hvacControllerModeChangedTrigger = this.homey.flow.getDeviceTriggerCard('hvac_controller_mode_changed');
+    hvacControllerModeChangedTrigger.registerRunListener(async (args, state) => {
+      const selectedValue = args.hvac_controller_mode && args.hvac_controller_mode.value
+        ? args.hvac_controller_mode.value
+        : args.hvac_controller_mode;
+      return selectedValue === 'Any' || args.device.getCapabilityValue('knx_hvac_controller_mode') === selectedValue;
+    });
+
     const fanAutoModeDisableAction = this.homey.flow.getActionCard('knx_fan_auto_mode_disable');
     fanAutoModeDisableAction.registerRunListener(async (args, state) => {
       if (args.device.getCapabilityValue('knx_fan_auto_mode') === false) {

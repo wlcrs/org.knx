@@ -222,6 +222,60 @@
       },
       {
         "title": {
+          "en": "Controller mode changed",
+          "nl": "Controller modus gewijzigd"
+        },
+        "titleFormatted": {
+          "en": "Controller mode changed to [[hvac_controller_mode]]",
+          "nl": "Controller modus gewijzigd naar [[hvac_controller_mode]]"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=knx_thermostat&capabilities=knx_hvac_controller_mode"
+          },
+          {
+            "name": "hvac_controller_mode",
+            "type": "dropdown",
+            "title": {
+              "en": "Controller mode",
+              "nl": "Controller modus"
+            },
+            "values": [
+              {
+                "id": "Any",
+                "title": {
+                  "en": "Any",
+                  "nl": "Om het even"
+                }
+              },
+              { "id": "0", "title": { "en": "Auto", "nl": "Auto" } },
+              { "id": "1", "title": { "en": "Heat", "nl": "Verwarmen" } },
+              { "id": "2", "title": { "en": "Morning warmup", "nl": "Ochtend opwarming" } },
+              { "id": "3", "title": { "en": "Cool", "nl": "Koelen" } },
+              { "id": "4", "title": { "en": "Night purge", "nl": "Nacht ventilatie" } },
+              { "id": "5", "title": { "en": "Precool", "nl": "Voor-koelen" } },
+              { "id": "6", "title": { "en": "Off", "nl": "Uit" } },
+              { "id": "7", "title": { "en": "Test", "nl": "Test" } },
+              { "id": "8", "title": { "en": "Emergency heat", "nl": "Noodverwarming" } },
+              { "id": "9", "title": { "en": "Fan only", "nl": "Alleen ventilator" } },
+              { "id": "10", "title": { "en": "Free cool", "nl": "Vrije koeling" } },
+              { "id": "11", "title": { "en": "Ice", "nl": "IJs" } },
+              { "id": "12", "title": { "en": "Maximum heating mode", "nl": "Maximale verwarmingsmodus" } },
+              { "id": "13", "title": { "en": "Economic heat/cool mode", "nl": "Economische warmte/koelmodus" } },
+              { "id": "14", "title": { "en": "Dehumidification", "nl": "Ontvochtiging" } },
+              { "id": "15", "title": { "en": "Calibration mode", "nl": "Kalibratiemodus" } },
+              { "id": "16", "title": { "en": "Emergency cool mode", "nl": "Noodkoelingsmodus" } },
+              { "id": "17", "title": { "en": "Emergency steam mode", "nl": "Noodstoommodus" } },
+              { "id": "20", "title": { "en": "NoDem", "nl": "NoDem" } }
+            ]
+          }
+        ],
+        "id": "hvac_controller_mode_changed"
+      },
+      {
+        "title": {
           "en": "Fan auto mode disabled",
           "nl": "Ventilator automatische modus uitgeschakeld",
           "da": "Ventilatorens automode deaktiveret",
@@ -1348,6 +1402,53 @@
                   "ar": "حماية المبنى"
                 }
               }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "change_hvac_controller_mode",
+        "title": {
+          "en": "Change HVAC controller mode",
+          "nl": "Verander HVAC controller modus"
+        },
+        "titleFormatted": {
+          "en": "Change controller mode to [[mode]]",
+          "nl": "Wijzig controller modus naar [[mode]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=knx_thermostat&capabilities=knx_hvac_controller_mode"
+          },
+          {
+            "name": "mode",
+            "type": "dropdown",
+            "title": {
+              "en": "Mode",
+              "nl": "Modus"
+            },
+            "values": [
+              { "id": "0", "title": { "en": "Auto", "nl": "Auto" } },
+              { "id": "1", "title": { "en": "Heat", "nl": "Verwarmen" } },
+              { "id": "2", "title": { "en": "Morning warmup", "nl": "Ochtend opwarming" } },
+              { "id": "3", "title": { "en": "Cool", "nl": "Koelen" } },
+              { "id": "4", "title": { "en": "Night purge", "nl": "Nacht ventilatie" } },
+              { "id": "5", "title": { "en": "Precool", "nl": "Voor-koelen" } },
+              { "id": "6", "title": { "en": "Off", "nl": "Uit" } },
+              { "id": "7", "title": { "en": "Test", "nl": "Test" } },
+              { "id": "8", "title": { "en": "Emergency heat", "nl": "Noodverwarming" } },
+              { "id": "9", "title": { "en": "Fan only", "nl": "Alleen ventilator" } },
+              { "id": "10", "title": { "en": "Free cool", "nl": "Vrije koeling" } },
+              { "id": "11", "title": { "en": "Ice", "nl": "IJs" } },
+              { "id": "12", "title": { "en": "Maximum heating mode", "nl": "Maximale verwarmingsmodus" } },
+              { "id": "13", "title": { "en": "Economic heat/cool mode", "nl": "Economische warmte/koelmodus" } },
+              { "id": "14", "title": { "en": "Dehumidification", "nl": "Ontvochtiging" } },
+              { "id": "15", "title": { "en": "Calibration mode", "nl": "Kalibratiemodus" } },
+              { "id": "16", "title": { "en": "Emergency cool mode", "nl": "Noodkoelingsmodus" } },
+              { "id": "17", "title": { "en": "Emergency steam mode", "nl": "Noodstoommodus" } },
+              { "id": "20", "title": { "en": "NoDem", "nl": "NoDem" } }
             ]
           }
         ]
