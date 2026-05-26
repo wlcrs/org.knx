@@ -79,7 +79,7 @@
         "failure_smoke": "Rauchsensorfehleradresse",
         "temperature": "Temperaturadresse",
         "failure_230v": "230V-Fehleradresse",
-        "acknowledge_fault": "Fehlerquittierungsadresse"
+        "acknowledge_fault": "Adresse zum Fehler zurücksetzen"
       },
       "scene": "Szenenadresse"
     },

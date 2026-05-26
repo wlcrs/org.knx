@@ -90,7 +90,7 @@
                 "failure_smoke": "Smoke sensor failure address",
                 "temperature": "Temperature address",
                 "failure_230v": "230V failure address",
-                "acknowledge_fault": "Acknowledge fault address"
+                "acknowledge_fault": "Reset faults address"
             },
             "scene": "Scene address"
         },

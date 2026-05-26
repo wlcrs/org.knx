@@ -79,7 +79,7 @@
         "failure_smoke": "Røgdetektorfejladresse",
         "temperature": "Temperaturadresse",
         "failure_230v": "230V fejladresse",
-        "acknowledge_fault": "Fejlbekræftelsesadresse"
+        "acknowledge_fault": "Adresse til nulstilling af fejl"
       },
       "scene": "Scene adresse"
     },
