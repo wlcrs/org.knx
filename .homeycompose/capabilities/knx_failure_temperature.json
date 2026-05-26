@@ -17,5 +17,6 @@
         "ar": "عطل مستشعر درجة الحرارة"
     },
     "getable": true,
-    "setable": false
+    "setable": false,
+    "icon": "assets/capabilities/knx_failure_temperature.svg"
 }

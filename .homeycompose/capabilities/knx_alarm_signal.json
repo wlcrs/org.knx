@@ -18,5 +18,6 @@
     },
     "getable": true,
     "setable": true,
-    "uiQuickAction": false
+    "uiQuickAction": false,
+    "icon": "assets/capabilities/alarm_siren.svg"
 }

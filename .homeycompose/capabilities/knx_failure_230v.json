@@ -17,5 +17,6 @@
     "ar": "عطل 230 فولت"
   },
   "getable": true,
-  "setable": false
+  "setable": false,
+  "icon": "assets/capabilities/knx_failure_230v.svg"
 }
