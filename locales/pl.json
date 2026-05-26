@@ -79,7 +79,7 @@
         "failure_smoke": "Adres awarii czujnika dymu",
         "temperature": "Adres temperatury",
         "failure_230v": "Adres awarii 230V",
-        "acknowledge_fault": "Adres potwierdzenia usterki"
+        "acknowledge_fault": "Adres resetowania usterek"
       },
       "scene": "Adres sceny"
     },

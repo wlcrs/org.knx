@@ -79,7 +79,7 @@
         "failure_smoke": "Rökdetektorfeladress",
         "temperature": "Temperaturaddress",
         "failure_230v": "230V feladress",
-        "acknowledge_fault": "Felbekräftelseadress"
+        "acknowledge_fault": "Adress för återställning av fel"
       },
       "scene": "Scenadress"
     },
