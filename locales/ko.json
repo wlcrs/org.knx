@@ -79,7 +79,7 @@
         "failure_smoke": "연기 센서 오류 주소",
         "temperature": "온도 주소",
         "failure_230v": "230V 오류 주소",
-        "acknowledge_fault": "오류 확인 주소"
+        "acknowledge_fault": "오류 재설정 주소"
       },
       "scene": "장면 주소"
     },

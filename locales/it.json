@@ -79,7 +79,7 @@
         "failure_smoke": "Indirizzo guasto rilevatore di fumo",
         "temperature": "Indirizzo temperatura",
         "failure_230v": "Indirizzo guasto 230V",
-        "acknowledge_fault": "Indirizzo conferma guasto"
+        "acknowledge_fault": "Indirizzo reimpostazione guasti"
       },
       "scene": "Indirizzo scena"
     },

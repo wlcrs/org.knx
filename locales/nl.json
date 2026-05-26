@@ -81,7 +81,7 @@
                 "failure_smoke": "Rookmelderstoringadres",
                 "temperature": "Temperatuuradres",
                 "failure_230v": "230V storingsadres",
-                "acknowledge_fault": "Fout bevestigingsadres"
+                "acknowledge_fault": "Storingen reset-adres"
             },
             "scene": "Scene adres"
         },
@@ -112,7 +112,7 @@
         "projectfile": {
             "no_valid_xml": "Geen geldige XML met groepadressen gevonden. Upload een ander projectbestand.",
             "invalid_ga_structure": "Ongeldige groepadres structuur in projectbestand",
-            "no_ga_found": "Geen groepadressen gevonden, wellicht was het project leeg."
+            "no_ga_found": "Geen groepadres gevonden, wellicht was het project leeg."
         }
     }
 }

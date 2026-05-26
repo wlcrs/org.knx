@@ -81,7 +81,7 @@
         "failure_smoke": "Adresse défaut détecteur de fumée",
         "temperature": "Adresse de température",
         "failure_230v": "Adresse défaut 230V",
-        "acknowledge_fault": "Adresse d'acquittement de défaut"
+        "acknowledge_fault": "Adresse de réinitialisation des défauts"
       },
       "scene": "Adresse de scène"
     },
